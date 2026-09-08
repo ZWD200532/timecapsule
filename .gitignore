@@ -1,0 +1,5 @@
+data/
+certs/
+*.log
+testout.txt
+ping.txt

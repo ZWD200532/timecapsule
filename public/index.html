@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>时间胶囊 · 共享记忆空间</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2322d3ee'/%3E%3Cstop offset='1' stop-color='%23f0f'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='42' fill='url(%23g)' opacity='.85'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23070810' stroke-width='5' stroke-dasharray='4 7'/%3E%3Ccircle cx='50' cy='50' r='9' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div id="vignette"></div>
+
+<!-- 登录 / 加入 -->
+<section id="login">
+  <div class="loginCard">
+    <div class="brand">
+      <div class="orb"></div>
+      <h1>时间胶囊</h1>
+      <p>把记忆交给地点与时间，和朋友们一起保管</p>
+    </div>
+    <div class="tabs">
+      <button id="tCreate" class="on">创建空间</button>
+      <button id="tJoin">加入空间</button>
+    </div>
+    <div class="form" id="formCreate">
+      <label>空间码 <input id="cCode" maxlength="12" placeholder="取个只有你们知道的名字，如 SCHOOL5"></label>
+      <label>空间名（可选）<input id="cName" maxlength="20" placeholder="默认与空间码相同"></label>
+      <label>你的昵称 <input id="cNick" maxlength="12" placeholder="朋友们怎么称呼你"></label>
+      <label>设置口令 <input id="cPass" type="password" maxlength="20" placeholder="至少 4 位，空间成员共用"></label>
+    </div>
+    <div class="form" id="formJoin" hidden>
+      <label>空间码 <input id="jCode" maxlength="12" placeholder="输入朋友给的空间码"></label>
+      <label>你的昵称 <input id="jNick" maxlength="12" placeholder="若昵称已被占用需使用相同口令"></label>
+      <label>空间口令 <input id="jPass" type="password" maxlength="20" placeholder="空间成员共用的口令"></label>
+    </div>
+    <div id="authErr"></div>
+    <button class="pri big" id="authGo">进入记忆空间</button>
+    <div class="tip">同一个空间的朋友可共同书写；记忆胶囊将按设定时间开启。</div>
+  </div>
+</section>
+
+<!-- 应用 -->
+<div id="app" hidden>
+  <header>
+    <div class="hBrand"><span class="dot"></span><b id="spName">…</b></div>
+    <div class="members" id="members"></div>
+    <div class="sp"></div>
+    <div id="clock"></div>
+    <button id="wBtn" title="切换天气效果：晴/多云/阴/雨/雪/雾">天气·晴</button>
+    <button id="demoBtn" title="演示不同时刻的光影">光影演示</button>
+    <button id="outBtn">退出</button>
+  </header>
+
+  <nav>
+    <button id="navCap" class="on">记忆胶囊</button>
+    <button id="navMem">记忆点</button>
+    <button id="navMap">记忆地图</button>
+    <span class="lockNote" id="lockNote"></span>
+  </nav>
+
+  <main>
+    <section id="capView">
+      <div class="subbar"><span id="capCount"></span><span class="hint">胶囊到点才会开启——把惊喜留给未来的你们</span></div>
+      <div id="capList"></div>
+    </section>
+    <section id="memView" hidden>
+      <div class="subbar"><span id="memCount"></span><span class="hint">共同的日常记忆，任何人都能补充细节</span></div>
+      <div id="memList"></div>
+    </section>
+    <section id="mapView" hidden>
+      <div id="amap"></div>
+      <div id="mapTools">
+        <button id="mtLocate" title="定位到我的位置">我的位置</button>
+        <button id="mtLink" title="依次点两个标记，串联成一段记忆轨迹">轨迹连线</button>
+      </div>
+      <div id="mapHint2">点击地图空白处，可把这里标记成一段记忆的地点；点击标记查看详情</div>
+      <div id="mapPopup" hidden>
+        <span id="mpCoord"></span>
+        <div class="mpActs">
+          <button id="mpMem">记一段记忆</button>
+          <button id="mpCap">封一枚胶囊</button>
+          <button class="x" id="mpClose">×</button>
+        </div>
+      </div>
+      <div id="mapErr" hidden></div>
+    </section>
+  </main>
+
+  <button class="fab" id="fabCap">+ 胶囊</button>
+  <button class="fab mem" id="fabMem" hidden>+ 记忆点</button>
+</div>
+
+<div id="mRoot"></div>
+<div id="lb"><img id="lbImg" alt=""><div id="lbClose">×</div></div>
+<div id="toast"></div>
+
+<script src="bg.js"></script>
+<script src="map.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
